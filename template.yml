@@ -1,0 +1,18 @@
+AWSTemplateformationVersion: '2019-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Greet me with SAM
+
+Resources:
+    greetMe:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: index.handler
+            MemorySize: 128
+            Timeout: 10
+            Runtime: nodejs12.x
+            Events:
+                GreetMe:
+                    Type: Api
+                    Properties:
+                        Path: /greetMe/{name}
+                        Method: get

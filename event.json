@@ -1,0 +1,8 @@
+{
+    "pathParameters":{
+        "name":"yagnaguru"
+    },
+    "queryStringParameters": {
+        "lang":"fr"
+      }
+}
