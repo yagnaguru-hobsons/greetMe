@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+    install:
+        commands: 
+            - echo started...
+            
+    pre_build:
+        commands: 
+            - echo building npm
+            - npm install
+
+    build:
+        commands:
+            - echo deployment started..
+            - sam deploy --template-file template.yml --stack-name greetMe-api --capabilities CAPABILITY_IAM 
+    
+    post_build:
+        commands: 
+            - echo deployment complete..
