@@ -13,7 +13,7 @@ phases:
     build:
         commands:
             - echo deployment started..
-            - sam deploy --stack-name greetMe-api 
+            - sam deploy --stack-name greetMe-api --s3-bucket sampocygr
     
     post_build:
         commands: 
