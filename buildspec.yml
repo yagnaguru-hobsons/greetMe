@@ -13,8 +13,8 @@ phases:
     build:
         commands:
             - echo deployment started..
-            - sam build
-            - sam deploy --template-file template.yml --stack-name greetMe-api --capabilities CAPABILITY_IAM --s3-bucket sampocygr 
+            - sam package --template-file template.yml --output-template-file sam.yml --s3-bucket sampocygr
+            - sam deploy --template-file sam.yml --stack-name greetMe-api --capabilities CAPABILITY_IAM 
     
     post_build:
         commands: 
