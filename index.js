@@ -1,12 +1,12 @@
 const moment = require('moment');
 const greeting = {
-    "en": "Hello",
-    "fr": "Bonjour",
-    "hi": "Namaste",
-    "es": "Hola",
-    "pt": "Olá",
-	"it": "Ciao",
-    "de": "Hallo" 
+    "en": "Hello !!",
+    "fr": "Bonjour !!",
+    "hi": "Namaste !!",
+    "es": "Hola !!",
+    "pt": "Olá !!",
+	"it": "Ciao !!",
+    "de": "Hallo !!" 
 }
 
 exports.handler = async (event) => {
