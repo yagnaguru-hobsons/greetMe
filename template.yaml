@@ -1,7 +1,17 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: Greet me with SAM
-
+​
+Globals:
+  Function:
+    Tracing: Active
+    Environment:
+      Variables:
+        DD_API_KEY: f38404a728ca8c5bc6306536080e1366
+        DD_FLUSH_TO_LOG: true
+  Api:
+    TracingEnabled: true
+​
 Resources:
     greetMe:
         Type: AWS::Serverless::Function
