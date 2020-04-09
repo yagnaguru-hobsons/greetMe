@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: Greet me with SAM
+Description: Url shortener with SAM
 
 Resources:
-    greetMe:
+    urlShortner:
         Type: AWS::Serverless::Function
         Properties:
             Handler: index.handler
@@ -11,8 +11,29 @@ Resources:
             Timeout: 10
             Runtime: nodejs12.x
             Events:
-                GreetMe:
+                Shortener:
                     Type: Api
                     Properties:
-                        Path: /greetMe/{name}
-                        Method: get
+                        Path: /shorten
+                        Method: POST
+    srcBucket:
+        Type: AWS::S3::Bucket
+        Properties:
+            BucketName: ygr
+            WebsiteConfiguration:
+                IndexDocument: index.html
+
+    SampleBucketPolicy: 
+        Type: AWS::S3::BucketPolicy
+        Properties: 
+            Bucket: 
+                Ref: "srcBucket"
+            PolicyDocument: 
+                Statement: 
+                    - 
+                        Action: "*"
+                        Effect: "Allow"
+                        Resource: 
+                            -   arn:aws:s3:::ygr
+                            -   arn:aws:s3:::ygr/*
+                        Principal: "*"

@@ -3,6 +3,9 @@
         "name":"yagnaguru"
     },
     "queryStringParameters": {
-        "lang":"fr"
-      }
+        "longUrl":"https://listertechnologies.sharepoint.com/:x:/s/listertech/ES66TBV-1RFAgjXn5rUUzJIBLG2I1Xm5Y8URtA5Loko0ww?e=QpY13R"
+      },
+    "body":{
+        "longUrl":"https://listertechnologies.sharepoint.com/:x:/s/listertech/ES66TBV-1RFAgjXn5rUUzJIBLG2I1Xm5Y8URtA5Loko0ww?e=QpY13R"
+    }
 }

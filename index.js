@@ -1,28 +1,51 @@
-const moment = require('moment');
-const greeting = {
-    "en": "Hello !!",
-    "fr": "Bonjour !!",
-    "hi": "Namaste !!",
-    "es": "Hola !!",
-    "pt": "Olá !!",
-	"it": "Ciao !!",
-    "de": "Hallo !!" 
-}
+var AWS = require("aws-sdk");
+var s3Client = new AWS.S3({ apiVersion: '2006-03-01' });
+const bucketName = "ygr";
 
-exports.handler = async (event) => {
-    let name = event.pathParameters.name;
-    console.log(event);
-    let {lang, ...info} = event.queryStringParameters || {};
-
-    let message = `${greeting[lang] ? greeting[lang] : greeting['en'] } ${name}`;
-    let response = {
-        message: message,
-        info: info,
-        timestamp: moment().unix()
+    exports.handler = async (event) => {
+        const body = JSON.parse(event.body);
+        const longUrl = body.longUrl;
+        if( !longUrl || longUrl === ""){
+            return {
+                statusCode: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({"message":"URL cannot be empty"})
+            };
+        }
+        let enc = Math.random().toString(36).substr(2, 5);
+        let params1 = { 
+            Bucket: bucketName, 
+            Key: enc, 
+            ACL:'public-read',
+            WebsiteRedirectLocation:longUrl 
+        };
+        try {
+            let obj = await createObject(params1);
+            return {
+                statusCode: 200,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({"message":`http://ygr.s3-website-us-east-1.amazonaws.com/${enc}`})
+            };
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify(response)
+    async function createObject(params1) {
+        return new Promise(async (resolve, reject) => {
+            await s3Client.putObject(params1, function (err, data) {
+                if (err) {
+                    console.log('Error creating the folder:', err);
+                    reject('error during putObject');
+                } else {
+                    console.log('success' + JSON.stringify(data));
+                    resolve('success');
+                }
+            });
+        });
     }
-}
